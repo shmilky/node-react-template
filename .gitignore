@@ -1,0 +1,7 @@
+10 lines (9 sloc)  161 Bytes
+server/node_modules
+client/node_modules
+public/compiled
+.idea
+.tmp
+.npmrc
