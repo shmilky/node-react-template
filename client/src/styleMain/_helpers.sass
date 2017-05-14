@@ -1,0 +1,151 @@
+@mixin textMiddleElement($height: 0)
+  vertical-align: middle
+  line-height: $height + px
+  min-height: $height + px
+
+// generic transition
+@mixin transition($args...)
+  -moz-transition: $args
+  -o-transition: $args
+  -ms-transition: $args
+  -webkit-transition: $args
+  transition: $args
+
+// generic transform
+@mixin transform($args...)
+  -webkit-transform: $args
+  -moz-transform: $args
+  -ms-transform: $args
+  -o-transform: $args
+  transform: $args
+
+@mixin transformRotation($rotation: 0)
+  @include transform(rotate($rotation + deg))
+
+// Fade in an element from a display none state
+@-webkit-keyframes fadeInFromNone
+  0%
+    display: none
+    opacity: 0
+  1%
+    display: block
+    opacity: 0
+  100%
+    display: block
+    opacity: 1
+
+@-moz-keyframes fadeInFromNone
+  0%
+    display: none
+    opacity: 0
+  1%
+    display: block
+    opacity: 0
+  100%
+    display: block
+    opacity: 1
+
+@-o-keyframes fadeInFromNone
+  0%
+    display: none
+    opacity: 0
+  1%
+    display: block
+    opacity: 0
+  100%
+    display: block
+    opacity: 1
+
+@keyframes fadeInFromNone
+  0%
+    display: none
+    opacity: 0
+  1%
+    display: block
+    opacity: 0
+  100%
+    display: block
+    opacity: 1
+
+// Flickering black box shadow
+@mixin flickeringBoxShadow($x: 0, $y: 8px, $blur: 12px, $spread: 0, $fromColor: rgba(0, 0, 0, 15), $toColor: rgba(0, 0, 0, 0.1), $period: 1s)
+  -webkit-animation: flickeringInternal $period infinite alternate
+  animation: flickeringInternal $period infinite alternate
+
+
+  @keyframes flickeringInternal
+    from
+      box-shadow: $x $y $blur $spread $fromColor
+    to
+      box-shadow: $x $y $blur $spread $toColor
+
+  @-o-keyframes flickeringInternal
+    from
+      -o-box-shadow: $x $y $blur $spread $fromColor
+    to
+      -o-box-shadow: $x $y $blur $spread $toColor
+
+  @-moz-keyframes flickeringInternal
+    from
+      -moz-box-shadow: $x $y $blur $spread $fromColor
+    to
+      -moz-box-shadow: $x $y $blur $spread $toColor
+
+  @-webkit-keyframes flickeringInternal
+    from
+      -webkit-box-shadow: $x $y $blur $spread $fromColor
+    to
+      -webkit-box-shadow: $x $y $blur $spread $toColor
+
+
+@mixin glowAnimation($args)
+  -webkit-animation-fill-mode: both
+  animation-fill-mode: both
+  -webkit-animation: glowAnimationInternal $args
+  animation: glowAnimationInternal $args
+
+  @keyframes glowAnimationInternal
+    0%
+      opacity: 0
+      transform: scale(0)
+
+    5%
+      opacity: 1
+
+    100%
+      transform: scale(1)
+      opacity: 0
+  @-o-keyframes glowAnimationInternal
+    0%
+      transform: scale(0)
+      opacity: 0
+
+    5%
+      opacity: 1
+
+    100%
+      transform: scale(1)
+      opacity: 0
+
+  @-moz-keyframes glowAnimationInternal
+    0%
+      -moz-transform: scale(0)
+      opacity: 0
+
+    5%
+      opacity: 1
+
+    100%
+      -moz-transform: scale(1)
+      opacity: 0
+  @-webkit-keyframes glowAnimationInternal
+    0%
+      -webkit-transform: scale(0)
+      opacity: 0
+
+    5%
+      opacity: 1
+
+    100%
+      -webkit-transform: scale(1)
+      opacity: 0
