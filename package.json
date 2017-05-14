@@ -1,6 +1,6 @@
 {
   "name": "node-react-template",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": "https://github.com/shmilky/node-react-template",
   "description": "Template for creating a new project with a node (express) server and a react client",
   "dependencies": {}
