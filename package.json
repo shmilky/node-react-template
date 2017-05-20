@@ -1,7 +1,20 @@
 {
   "name": "node-react-template",
   "version": "0.1.2",
-  "repository": "https://github.com/shmilky/node-react-template",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shmilky/node-react-template.git"
+  },
   "description": "Template for creating a new project with a node (express) server and a react client",
-  "dependencies": {}
+  "dependencies": {},
+  "bugs": {
+    "url": "https://github.com/shmilky/node-react-template/issues"
+  },
+  "homepage": "https://github.com/shmilky/node-react-template#readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }
