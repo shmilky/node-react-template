@@ -83,4 +83,4 @@ npm start
 Production
 ```
 npm run compile
-```"# iHike" 
+```
