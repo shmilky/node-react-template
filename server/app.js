@@ -27,8 +27,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './public')));
 
+// Setting config params in the request object for usage by following request handling
+app.use(function (req, res, next) {
+    req.config = {
+        env: process.env.NODE_ENV || 'production'
+    };
+
+    next();
+});
+
 // API Routes
 app.use(demoApiRouter);
+
+// Setting generic locals for different pug rendering usage
+app.use(function (req, res, next) {
+    res.locals.env = req.config.env;
+
+    next();
+});
 
 // Pages Routes
 app.use(viewsRouter);

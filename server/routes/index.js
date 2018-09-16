@@ -1,6 +1,6 @@
 'use strict';
 
-var router = require('express').Router();
+const router = require('express').Router();
 
 router.get('/demo-path', function(req, res) {
     res.render('index', {
