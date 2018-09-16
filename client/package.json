@@ -29,20 +29,13 @@
     "prop-types": "15.6.1",
     "react": "16.3.2",
     "react-dom": "16.3.2",
-    "react-redux": "5.0.4",
-    "react-router-dom": "4.2.2",
-    "react-router-redux": "4.0.5",
-    "redux": "3.6.0",
-    "redux-form": "6.6.3",
-    "redux-thunk": "2.2.0"
+    "react-router-dom": "4.2.2"
   },
   "devDependencies": {
     "webpack-dev-server": "2.7.1"
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --open --env=dev --hot",
-    "start-server": "node ../../server/bin/www",
-    "start-with-server": "concurrently --kill-others \"npm run start-server\" \"npm start\"",
     "compile": "NODE_ENV=production webpack --env=prod --config webpack.config.js --display verbose --progress",
     "compile-windows": "SET NODE_ENV=production & webpack --env=prod --config webpack.config.js --display verbose --progress",
     "compile-dev": "webpack --env=dev --config webpack.config.js",

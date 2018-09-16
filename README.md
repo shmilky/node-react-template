@@ -1,18 +1,19 @@
 ## Node React Template
 
-A template for creating a nodejs express based server with a reactjs client with other main stream packages such as:
+A template for creating a nodejs express based server with a reactjs client along using other well maintained packages:
  - react-router
- - webpack
+ - webpack (and complimentary relevant packages)
  - request
- - jade
+ - Expressjs
+ - pug
 
 ## Table of Contents:
-- [Installation](#installation)
+- [Getting started](#getting-started)
 - [Source Structure](#source-structure)
 - [Webpack base configuration](#webpack-base-configuration)
 - [Run Scripts](#run-scripts)
 
-## Installation
+## Getting started
 
 First you should clone the repository
 ```
@@ -45,9 +46,11 @@ cd ..
         - index.js - where it all begins:)
         - routes - helper to dynamically configure your web app routes
     - webpack
-        - webpack.general.js - general webpack configurations
+        - clientConfig.js - general webpack configurations for compiling the client for using on the browser
         - webpack.dev.js - for development environment webpack configuration, mostly the usage of dev-server
         - webpack.prod.js - when you want to go to production
+        - ssrConfig.js - general webpack configurations for compiling the client for SSR
+        - webpack.ssr.js - will be used when ssr
     - .babelrc
     - webpack.config.js
 - server - where all the node server code exist
@@ -76,11 +79,21 @@ TBD
 ## Run Scripts
 
 Development
+client
+```
+npm start
+```
+server (to see node options go to the package file and see what exactly the npm command do)
 ```
 npm start
 ```
 
 Production
+client
 ```
 npm run compile
+```
+server (to see node options go to the package file and see what exactly the npm command do)
+```
+npm run start-prod
 ```
