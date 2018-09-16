@@ -3,25 +3,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import {demoApi} from '../../api';
-import {logger} from '../../resources/helpers';
-
 import {landing as landingRoutes} from '../../routes';
 
 import {SharedComponent} from '../../components';
 
 export default class extends React.Component {
-    componentWillMount () {
-        demoApi.getDemoData(function (err, demoData) {
-            if (err) {
-                logger.logError(err);
-            }
-            else {
-                this.setState({data: demoData});
-            }
-        }.bind(this))
-    }
-
     render () {
         const {data=[]} = this.state || {};
 

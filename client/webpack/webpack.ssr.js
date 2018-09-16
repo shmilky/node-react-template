@@ -2,8 +2,6 @@
 
 const webpack = require('webpack');
 //noinspection JSUnresolvedVariable
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // Uglify code
-//noinspection JSUnresolvedVariable
 const DefinePlugin = webpack.DefinePlugin; // Replace code with specific values
 
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin'); // Force case sensitive on client paths upon require/import
@@ -16,7 +14,7 @@ const extractSass = new ExtractTextPlugin({
     disable: process.env.NODE_ENV !== "production"
 });
 
-const {appDir} = require('./clientConfig').configPaths;
+const {appDir} = require('./ssrConfig').configPaths;
 
 module.exports = {
     module: {
@@ -59,9 +57,10 @@ module.exports = {
                 include: appDir,
                 use: ExtractTextPlugin.extract({
                     use: [{
-                        loader: "css-loader?importLoaders=1&modules&localIdentName=[path]___[name]__[local]",
+                        loader: "css-loader",
                         options: {
                             modules: true,
+                            // localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
                             sourceMap: false,
                             minimize: true
                         }
@@ -78,10 +77,10 @@ module.exports = {
         extractSass,
         new DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify('production')
+                'NODE_ENV': JSON.stringify('production'),
+                'COMPILE_STATE': JSON.stringify('SSR')
             }
         }),
-        new UglifyJsPlugin(),
         new CaseSensitivePathsPlugin(),
     ]
 };
