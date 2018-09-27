@@ -3,11 +3,22 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+import {demoApi} from '../../api'
 import {landing as landingRoutes} from '../../routes';
 
 import {SharedComponent} from '../../components';
 
 export default class extends React.Component {
+    constructor (props) {
+        super(props);
+
+        this.state = {data: []}
+    }
+
+    componentWillMount () {
+        demoApi.getDemoData((demoDataArray) => this.setState({data: demoDataArray}))
+    }
+
     render () {
         const {data=[]} = this.state || {};
 

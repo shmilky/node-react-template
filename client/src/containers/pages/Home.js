@@ -3,7 +3,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import {helpers} from '../../resources';
+import routingHelpers from 'react-router-routing-helpers';
 import {demoPages as demoPagesRoutes, modalNames} from '../../routes';
 
 import {SharedComponent} from '../../components';
@@ -11,7 +11,7 @@ import {SharedComponent} from '../../components';
 export default class extends React.Component {
     openModal () {
         const {pathname, search} = this.props.location;
-        const urlWithNoModal = helpers.routingHelpers.addQueryParam(pathname, search, {modal: modalNames.DEMO_MODAL});
+        const urlWithNoModal = routingHelpers.addQueryParam(pathname, search, {modal: modalNames.DEMO_MODAL});
 
         this.props.history.push(urlWithNoModal);
     }

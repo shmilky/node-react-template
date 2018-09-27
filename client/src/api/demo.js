@@ -1,10 +1,9 @@
 'use strict';
 
-import {helpers} from '../resources';
-const {requestHelpers} = helpers;
+import request from 'simple-client-request';
 
 export default {
     getDemoData: function (cb) {
-        requestHelpers.get('/api/v1/get-demo-data', cb);
+        request.get('/api/v1/get-demo-data', cb);
     }
 }
