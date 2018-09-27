@@ -6,8 +6,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // Uglify code
 //noinspection JSUnresolvedVariable
 const DefinePlugin = webpack.DefinePlugin; // Replace code with specific values
 
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin'); // Force case sensitive on client paths upon require/import
-
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const extractSass = new ExtractTextPlugin({
@@ -82,6 +80,5 @@ module.exports = {
             }
         }),
         new UglifyJsPlugin(),
-        new CaseSensitivePathsPlugin(),
     ]
 };
