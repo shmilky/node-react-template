@@ -24,8 +24,6 @@ module.exports.webpack = {
     },
     externals: {
         'jquery': 'var jQuery',
-        'lodash': 'var _',
-        'moment': 'var moment',
 
         'react': 'var React',
         'react-dom': 'var ReactDOM',
@@ -33,11 +31,5 @@ module.exports.webpack = {
 
         'react-router': 'var ReactRouterDOM',
         'react-router-dom': 'var ReactRouterDOM',
-
-        'redux': 'var Redux',
-        'react-redux': 'var ReactRedux',
-        'redux-thunk': 'var ReduxThunk',
-
-        'redux-form': 'var ReduxForm',
     },
 };
