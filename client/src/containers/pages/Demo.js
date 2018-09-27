@@ -16,7 +16,7 @@ export default class extends React.Component {
     }
 
     componentWillMount () {
-        demoApi.getDemoData((demoDataArray) => this.setState({data: demoDataArray}))
+        demoApi.getDemoData((err, demoDataArr) => !err && this.setState({data: demoDataArr}))
     }
 
     render () {
