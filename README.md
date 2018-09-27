@@ -55,16 +55,21 @@ cd ..
     - webpack.config.js
 - server - where all the node server code exist
 
-## Webpack base configuration
-Development
-```
-TBD
-```
-
-Production
-```
-TBD
-```
+## Webpack client configuration
+#### General
+entry - detarmin the initial client app index.js file
+output - detarmin what is the bundle files names (filename, chunkFilename) inlcluding where to place them (path) and from where we expact clients to consume them (publicPath)
+externals - specify which libraries will be used as the global libs (fetched from CDN)
+#### Development
+devServer - used for dev only to have compiled file cached in-memory, currently listen to port 3000 and proxy other requests to port 4300
+plugins
+- DefinePlugin - replace object to specific static strings, uses
+- CaseSensitivePathsPlugin to generate compilation errors on windows (by default not throw errors for usage of wrong folder names)
+#### Production
+plugins -
+- extractSass - move all sass to a static css file
+- DefinePlugin - replace object to specific static strings, uses
+- UglifyJsPlugin - uglify code
 
 Inline style with sass
 ```
