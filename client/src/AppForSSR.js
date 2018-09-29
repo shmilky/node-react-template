@@ -3,7 +3,9 @@
 import React from 'react';
 import {StaticRouter, Route, Switch} from 'react-router-dom';
 
-import HomePage from './containers/pages/Home';
+import {demoPages} from './routes';
+
+import {HomePage, DemoPage} from './containers/pages';
 
 import layoutStyles from './styleMain/layout.sass';
 
@@ -16,6 +18,7 @@ export default function (route) {
                         <div>
                             <Switch>
                                 <Route exact path={'/'} component={HomePage}/>
+                                <Route exact path={demoPages.DEMO_PAGE} component={DemoPage}/>
                                 <Route exact path={'*'} component={HomePage}/>
                             </Switch>
                         </div>

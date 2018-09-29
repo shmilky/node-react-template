@@ -1,0 +1,4 @@
+{
+  "name": "simple-client-request",
+  "main": "./mockupSimpleClientRequest.js"
+}

@@ -8,7 +8,7 @@
   "devDependencies": {},
   "dependencies": {
     "react-router-routing-helpers": "1.0.3",
-    "simple-client-request": "1.0.8",
+    "simple-client-request": "file:./ssr/mockupPackages/simpleClientRequest",
     "jquery": "3.2.1",
     "prop-types": "15.6.1",
     "react": "16.3.2",

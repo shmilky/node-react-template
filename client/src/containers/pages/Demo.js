@@ -15,7 +15,7 @@ export default class extends React.Component {
         this.state = {data: []}
     }
 
-    componentWillMount () {
+    componentDidMount () {
         demoApi.getDemoData((err, demoDataArr) => !err && this.setState({data: demoDataArr}))
     }
 
