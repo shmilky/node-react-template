@@ -5,7 +5,7 @@ const nodeExternals = require('webpack-node-externals');
 
 const APP_DIR = path.resolve(__dirname, '../src');
 const BASE_PUBLIC_PATH = path.resolve(__dirname, '../../server');
-const BUILD_DIR = '/ssr/compiled';
+const BUILD_DIR = '/ssr/.compiled';
 
 const configPaths = {
     appDir: APP_DIR,

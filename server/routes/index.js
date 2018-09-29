@@ -7,7 +7,7 @@ const {renderToString} = require('react-dom/server');
 // Trying to use the compiled App factory
 let serverAppFactory;
 try {
-    serverAppFactory = require('../ssr/compiled/ServerAppFactory.js').default;
+    serverAppFactory = require('../ssr/.compiled/ServerAppFactory.js').default;
 }
 catch (e) {
     console.error('creating server app factory for ssr resulted with exception - ' + e);
