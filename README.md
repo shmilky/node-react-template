@@ -90,20 +90,24 @@ TBD
 Development
 client
 ```
+npm install
 npm start
 ```
 server (to see node options go to the package file and see what exactly the npm command do)
 ```
+npm install
 npm start
 ```
 
 Production (before running the server you should compile all client code for client usage and SSR)
 client
 ```
+npm install
 npm run compile
 npm run compile-ssr
 ```
 server (to see node options go to the package file and see what exactly the npm command do)
 ```
+npm install
 npm run start-prod
 ```
