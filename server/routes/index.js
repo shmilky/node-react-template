@@ -18,7 +18,7 @@ const NO_SSR_HTML_ERROR = "<script>console.warn('failed ssr attempt')</script>";
 /* GET home page. */
 router.get('*', function(req, res, next) {
     if (serverAppFactory) {
-        res.locals.htmlContent = renderToString(react.createElement(serverAppFactory));
+        res.locals.htmlContent = renderToString(react.createElement(serverAppFactory(req.url)));
     }
     else {
         res.locals.htmlContent = NO_SSR_HTML_ERROR;
