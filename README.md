@@ -57,8 +57,8 @@ cd ..
 
 ## Webpack client configuration
 #### General
-entry - detarmin the initial client app index.js file
-output - detarmin what is the bundle files names (filename, chunkFilename) inlcluding where to place them (path) and from where we expact clients to consume them (publicPath)
+entry - determine the initial client app index.js file
+output - determine what is the bundle files names (filename, chunkFilename) inlcluding where to place them (path) and from where we expact clients to consume them (publicPath)
 externals - specify which libraries will be used as the global libs (fetched from CDN)
 #### Development
 devServer - used for dev only to have compiled file cached in-memory, currently listen to port 3000 and proxy other requests to port 4300
@@ -70,6 +70,10 @@ plugins -
 - extractSass - move all sass to a static css file
 - DefinePlugin - replace object to specific static strings, uses
 - UglifyJsPlugin - uglify code
+#### SSR
+entry - determine where the initial ssr App file is
+output - where we want to put the compiled code
+externals - using nodeExternals for ssr
 
 Inline style with sass
 ```
@@ -93,10 +97,11 @@ server (to see node options go to the package file and see what exactly the npm 
 npm start
 ```
 
-Production
+Production (before running the server you should compile all client code for client usage and SSR)
 client
 ```
 npm run compile
+npm run compile-ssr
 ```
 server (to see node options go to the package file and see what exactly the npm command do)
 ```
