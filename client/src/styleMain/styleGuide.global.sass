@@ -1,0 +1,51 @@
+@import "_sizesAndColors"
+
+body
+  font-size: 14px
+h1
+  color: $textColorBlack
+  font-size: 36px
+  line-height: 1.17
+
+h2
+  color: $textColorBlack
+  font-size: 30px
+  line-height: 1.17
+
+h4
+  color: $textColorBlack
+  font-size: 18px
+
+p
+  color: $textColorBlackLight
+  font-size: 15px
+  line-height: 1.6
+
+@mixin btn-style()
+  display: inline-block
+  border-radius: 0
+  border: none
+  font-size: 14px
+  background: $lightGray
+  padding: 14px 20px
+  color: $textColorTransparentBlack
+
+@mixin link-btn-style()
+  border: none
+  background: transparent
+
+@mixin hollow-btn()
+  background: transparent
+
+@mixin floating-btn()
+  border-radius: 2px
+  background-color: #a0a0a0
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.19)
+
+.only-mobile
+  @media screen and (min-width: $mobileMaxWidth)
+    display: none
+
+.only-desktop
+  @media screen and (max-width: $mobileMaxWidth)
+    display: none
