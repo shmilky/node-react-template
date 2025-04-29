@@ -1,65 +1,97 @@
 const webpack = require('webpack');
-//noinspection JSUnresolvedVariable
-const DefinePlugin = webpack.DefinePlugin; // Replace code with specific values
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin'); // Force case sensitive on client paths upon require/import
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const {appDir, basePublicPath, buildDir} = require('./clientConfig').configPaths;
 
 module.exports = {
+    mode: 'development',
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 include: appDir,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [['es2015', {modules: false}]],
-                        plugins: ['syntax-dynamic-import']
+                        presets: [
+                            ['@babel/preset-env', { modules: false }],
+                            '@babel/preset-react'
+                        ],
+                        plugins: ['@babel/plugin-syntax-dynamic-import']
                     }
                 }
             },
             {
-                test: /\.jsx$/,
-                include: appDir,
-                use: {
-                    loader: 'babel-loader'
-                }
-            },
-            {
-                test: /\.global\.sass$/,  // only files with .global will go through this loader. e.g. app.global.sass
-                loaders: [
+                test: /\.global\.sass$/,
+                use: [
                     'style-loader',
-                    'css-loader?importLoaders=1',
-                    'fast-sass-loader'
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
                 ]
             },
             {
-                test: /^((?!\.global).)*\.sass$/, // anything with .global will not go through css modules loader
+                test: /^((?!\.global).)*\.sass$/,
                 include: appDir,
                 use: [
                     'style-loader',
-                    'css-loader?importLoaders=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-                    'fast-sass-loader'
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: {
+                                localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+                            },
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
                 ]
             }
         ]
     },
     devServer: {
-        contentBase: basePublicPath,
+        static: {
+            directory: basePublicPath
+        },
         port: 3000,
         proxy: {
             '/': process.env.API_HOST || 'http://localhost:4300'
         },
-        publicPath: buildDir + '/'
-    },
-    devtool: 'source-map',
-    plugins: [
-        new DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('dev')
+        hot: true,
+        historyApiFallback: true,
+        client: {
+            overlay: {
+                errors: true,
+                warnings: false
             }
+        }
+    },
+    devtool: 'eval-source-map',
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development')
         }),
         new CaseSensitivePathsPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css'
+        })
     ]
 };

@@ -15,21 +15,39 @@ const configPaths = {
 module.exports.configPaths = configPaths;
 
 module.exports.webpack = {
-    entry: configPaths.appDir + '/index.js',
+    entry: {
+        main: path.join(configPaths.appDir, 'index.js')
+    },
     output: {
-        path: configPaths.basePublicPath + configPaths.buildDir,
-        filename: '[name].bundle.js',
-        chunkFilename: '[name].bundle.js',
-        publicPath: configPaths.buildDir + '/'
+        path: path.join(configPaths.basePublicPath, configPaths.buildDir),
+        filename: '[name].[contenthash].bundle.js',
+        chunkFilename: '[name].[contenthash].bundle.js',
+        publicPath: configPaths.buildDir + '/',
+        clean: true
+    },
+    resolve: {
+        extensions: ['.js', '.jsx', '.json'],
+        modules: ['node_modules', APP_DIR]
     },
     externals: {
-        'jquery': 'var jQuery',
-
-        'react': 'var React',
-        'react-dom': 'var ReactDOM',
-        'prop-types': 'var PropTypes',
-
-        'react-router': 'var ReactRouterDOM',
-        'react-router-dom': 'var ReactRouterDOM',
+        jquery: 'jQuery',
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        'prop-types': 'PropTypes',
+        'react-router-dom': 'ReactRouterDOM'
     },
+    optimization: {
+        moduleIds: 'deterministic',
+        runtimeChunk: 'single',
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
+            }
+        }
+    }
 };
