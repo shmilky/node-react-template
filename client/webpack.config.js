@@ -7,21 +7,18 @@ module.exports = function(env) {
 
     if (env === 'ssr') {
         generalConfig = require('./webpack/ssrConfig').webpack;
-    }
-    else {
+    } else {
         generalConfig = require('./webpack/clientConfig').webpack;
     }
 
+    const envConfig = require(`./webpack/webpack.${env}.js`);
+    const execConfig = { ...generalConfig, ...envConfig };
 
-    const envConfig = require('./webpack/webpack.' + env  + '.js');
-    const execConfig = Object.assign({}, generalConfig, envConfig);
-    console.log(JSON.stringify(execConfig));
-
-    console.log('*******************');
-    console.log('webpack ' + env + ' setup\n' +
-        'Compiling entry point is ' + JSON.stringify(execConfig.entry) + '\n' +
-        'Compiling files to ' + execConfig.output.path + ' folder.......');
-    console.log('*******************');
+    console.log('\n*******************');
+    console.log(`Webpack ${env} Configuration:`);
+    console.log(`Entry point: ${JSON.stringify(execConfig.entry)}`);
+    console.log(`Output path: ${execConfig.output.path}`);
+    console.log('*******************\n');
 
     return execConfig;
 };

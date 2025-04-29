@@ -1,17 +1,14 @@
 'use strict';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import App from './App';
 
-function Main () {
-    return (
-        <App/>
-    );
+function Main() {
+    return <App />;
 }
 
-ReactDOM.render(
-    <Main/>,
-  document.getElementById('root')
-);
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<Main />);

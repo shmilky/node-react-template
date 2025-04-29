@@ -1,84 +1,98 @@
 'use strict';
 
 const webpack = require('webpack');
-//noinspection JSUnresolvedVariable
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // Uglify code
-//noinspection JSUnresolvedVariable
-const DefinePlugin = webpack.DefinePlugin; // Replace code with specific values
-
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-const extractSass = new ExtractTextPlugin({
-    filename: "bundle.css?[hash]-[chunkhash]-[contenthash]-[name]",
-    allChunks: true,
-    disable: process.env.NODE_ENV !== "production"
-});
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const {appDir} = require('./clientConfig').configPaths;
 
 module.exports = {
+    mode: 'production',
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 include: appDir,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [['es2015', {modules: false}]],
-                        plugins: ['syntax-dynamic-import']
+                        presets: [
+                            ['@babel/preset-env', { modules: false }],
+                            '@babel/preset-react'
+                        ],
+                        plugins: ['@babel/plugin-syntax-dynamic-import']
                     }
                 }
             },
             {
-                test: /\.jsx$/,
-                include: appDir,
-                use: {
-                    loader: 'babel-loader'
-                }
-            },
-            {
-                test: /\.global\.sass$/,  // only files with .global will go through this loader. e.g. app.global.sass
-                use: ExtractTextPlugin.extract({
-                    use: [{
-                        loader: "css-loader?importLoaders=1",
+                test: /\.global\.sass$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            sourceMap: false
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
                         options: {
                             sourceMap: false
                         }
-                    }, {
-                        loader: "fast-sass-loader"
-                    }],
-                    // use style-loader in development
-                    fallback: "style-loader"
-                }),
+                    }
+                ]
             },
             {
-                test: /^((?!\.global).)*\.sass$/, // anything with .global will not go through css modules loader
+                test: /^((?!\.global).)*\.sass$/,
                 include: appDir,
-                use: ExtractTextPlugin.extract({
-                    use: [{
-                        loader: "css-loader?importLoaders=1&modules&localIdentName=[path]___[name]__[local]",
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
                         options: {
-                            modules: true,
-                            sourceMap: false,
-                            minimize: true
+                            importLoaders: 1,
+                            modules: {
+                                localIdentName: '[hash:base64:5]'
+                            },
+                            sourceMap: false
                         }
-                    }, {
-                        loader: "fast-sass-loader"
-                    }],
-                    // use style-loader in development
-                    fallback: "style-loader"
-                }),
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: false
+                        }
+                    }
+                ]
             }
         ]
     },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    compress: {
+                        drop_console: true
+                    },
+                    format: {
+                        comments: false
+                    }
+                },
+                extractComments: false
+            }),
+            new CssMinimizerPlugin()
+        ]
+    },
     plugins: [
-        extractSass,
-        new DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
         }),
-        new UglifyJsPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name].[contenthash].css',
+            chunkFilename: '[id].[contenthash].css'
+        })
     ]
 };
